@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="파생상품 평가 REST API — PricingAPI">
+  <meta name="description" content="파생상품 평가 REST API — 기관급 평가 엔진을 클라우드 API로 제공하는 PricingAPI">
   <title>PricingAPI | Financial Engineering & Development</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -34,7 +34,7 @@
       <div class="container">
         <p class="eyebrow">PricingAPI</p>
         <h1>파생상품 평가 API</h1>
-        <p>고성능 평가 엔진을 REST API로 제공하여 외부 시스템과 손쉽게 연동할 수 있습니다.</p>
+        <p>기관급 평가 엔진을 클라우드 REST API로 제공합니다. 복잡한 인프라 구축 없이 한 번의 HTTP 호출로 정확한 가격과 리스크 지표를 받아보세요.</p>
       </div>
     </section>
 
@@ -46,10 +46,47 @@
         </div>
         <div class="info-panel" style="margin-bottom: 2.5rem;">
           <p>
-            C++ 및 Python 기반의 파생상품 평가 엔진을 API 레이어로 노출합니다.
-            트레이딩 시스템, 리스크 관리 플랫폼, 사내 도구 등 다양한 환경에서
-            가격 산출과 민감도 분석을 HTTP 요청으로 수행할 수 있습니다.
+            PricingAPI는 C++ 및 Python 기반의 검증된 평가 엔진을 그대로 API 레이어로 노출합니다.
+            금리·통화·신용 등 다양한 자산군의 파생상품에 대해 가격 산출과 민감도 분석을
+            표준 HTTP 요청만으로 수행할 수 있어, 트레이딩 시스템·리스크 관리 플랫폼·사내 도구 등
+            어떤 환경에서도 손쉽게 통합됩니다.
           </p>
+          <p>
+            라이브러리 빌드, 모델 캘리브레이션, 수치 계산 인프라를 직접 운영할 필요가 없습니다.
+            평가 로직은 서버에서 관리·업데이트되며, 사용자는 입력값을 전달하고 결과를 받기만 하면 됩니다.
+            실시간 단건 평가부터 대량 배치 평가까지 동일한 인터페이스로 처리합니다.
+          </p>
+        </div>
+
+        <div class="section-header">
+          <span class="section-label">Why PricingAPI</span>
+          <h2>핵심 강점</h2>
+        </div>
+        <div class="feature-grid" style="margin-bottom: 2.5rem;">
+          <div class="feature-box">
+            <h3>정확한 평가</h3>
+            <ul class="feature-list">
+              <li>QuantLib 기반 검증 엔진</li>
+              <li>시장 표준 모델 · 컨벤션</li>
+              <li>곡선 · 변동성 캘리브레이션</li>
+            </ul>
+          </div>
+          <div class="feature-box">
+            <h3>고성능 처리</h3>
+            <ul class="feature-list">
+              <li>C++ 코어 기반 빠른 계산</li>
+              <li>대량 포트폴리오 배치 평가</li>
+              <li>병렬 · 비동기 요청 지원</li>
+            </ul>
+          </div>
+          <div class="feature-box">
+            <h3>간편한 연동</h3>
+            <ul class="feature-list">
+              <li>언어 독립적 REST 인터페이스</li>
+              <li>TOML · JSON 입력 스키마</li>
+              <li>명확한 문서와 샘플 코드</li>
+            </ul>
+          </div>
         </div>
 
         <div class="section-header">
@@ -61,7 +98,7 @@
             <h3>가격 산출</h3>
             <ul class="feature-list">
               <li>옵션 · 선물 등 파생상품</li>
-              <li>복합 구조 상품</li>
+              <li>금리스왑 · 채권 등 금리상품</li>
               <li>실시간 · 배치 요청</li>
             </ul>
           </div>
@@ -80,6 +117,56 @@
               <li>커스텀 모델 연동</li>
               <li>엔터프라이즈 환경 지원</li>
             </ul>
+          </div>
+        </div>
+
+        <div class="section-header">
+          <span class="section-label">Try it</span>
+          <h2>실시간 평가 데모</h2>
+          <p>아래 TOML 입력값을 수정하고 <strong>평가 실행</strong> 버튼을 누르면 즉시 평가 결과를 확인할 수 있습니다.</p>
+        </div>
+        <div id="pricing-tool" class="toml-tool" style="margin-bottom: 2.5rem;" v-cloak>
+          <div class="toml-grid">
+            <div class="toml-editor">
+              <div class="toml-editor-head">
+                <span>input.toml</span>
+                <button type="button" class="btn btn-outline btn-sm" @click="resetInput">초기화</button>
+              </div>
+              <textarea
+                class="toml-input"
+                v-model="tomlText"
+                spellcheck="false"
+                rows="12"
+                @keydown.tab.prevent="insertTab"></textarea>
+              <button type="button" class="btn btn-primary" @click="evaluate">평가 실행 →</button>
+              <p class="toml-error" v-if="error">{{ error }}</p>
+            </div>
+
+            <div class="result-panel">
+              <div class="result-head"><span>Evaluation Result</span></div>
+
+              <div v-if="!result" class="result-empty">
+                입력값을 확인하고<br>평가 실행 버튼을 눌러 주세요.
+              </div>
+
+              <div v-else>
+                <div class="result-highlight">
+                  <div class="label">Present Value (현재가치)</div>
+                  <div class="value">{{ fmt(result.pv) }}</div>
+                </div>
+                <ul class="result-list">
+                  <li><span class="k">고정쿠폰 PV</span><span class="v">{{ fmt(result.couponPv) }}</span></li>
+                  <li><span class="k">원금 PV</span><span class="v">{{ fmt(result.notionalPv) }}</span></li>
+                  <li><span class="k">쿠폰 금액 (회차당)</span><span class="v">{{ fmt(result.coupon) }}</span></li>
+                  <li><span class="k">현금흐름 횟수</span><span class="v">{{ result.periods }}</span></li>
+                  <li><span class="k">잔존만기 (년)</span><span class="v">{{ fmt(result.years, 2) }}</span></li>
+                  <li><span class="k">DV01 (1bp 민감도)</span><span class="v">{{ fmt(result.dv01, 2) }}</span></li>
+                  <li><span class="k">Macaulay Duration</span><span class="v">{{ fmt(result.macaulay, 3) }}</span></li>
+                  <li><span class="k">Modified Duration</span><span class="v">{{ fmt(result.modDuration, 3) }}</span></li>
+                </ul>
+                <p class="toml-note">※ 본 결과는 브라우저에서 실행되는 데모 계산입니다. 실제 평가는 API 엔진을 통해 제공됩니다.</p>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -123,5 +210,157 @@
       <div class="footer-bottom">© 2026 QuantDev. All rights reserved.</div>
     </div>
   </footer>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <script>
+    const { createApp, ref } = Vue;
+
+    const DEFAULT_TOML = [
+      "# 고정금리 상품(금리스왑/채권) 입력값",
+      "notional = 1000000",
+      "fixedRate = 0.03",
+      "frequency = 4          # 연간 지급 횟수",
+      "valueDate = 2026-06-19",
+      "maturityDate = 2031-06-19",
+      "discountRate = 0.035"
+    ].join("\n");
+
+    createApp({
+      setup() {
+        const tomlText = ref(DEFAULT_TOML);
+        const result = ref(null);
+        const error = ref("");
+
+        function parseToml(text) {
+          const obj = {};
+          text.split(/\r?\n/).forEach(function (raw) {
+            const line = raw.trim();
+            if (!line || line.charAt(0) === "#" || line.charAt(0) === "[") return;
+            const eq = line.indexOf("=");
+            if (eq === -1) throw new Error('구문 오류: "' + raw + '"');
+            const key = line.slice(0, eq).trim();
+            if (!key) throw new Error('키가 비어 있습니다: "' + raw + '"');
+            let val = line.slice(eq + 1).trim();
+            if (val.charAt(0) === '"' || val.charAt(0) === "'") {
+              const q = val.charAt(0);
+              const end = val.indexOf(q, 1);
+              if (end !== -1) val = val.slice(1, end);
+            } else {
+              const h = val.indexOf("#");
+              if (h !== -1) val = val.slice(0, h).trim();
+            }
+            obj[key.toLowerCase()] = val;
+          });
+          return obj;
+        }
+
+        function num(v, d) {
+          const n = parseFloat(v);
+          return isFinite(n) ? n : d;
+        }
+
+        function toDate(v) {
+          if (!v) return null;
+          const d = new Date(v);
+          return isNaN(d.getTime()) ? null : d;
+        }
+
+        function evaluate() {
+          error.value = "";
+          try {
+            const p = parseToml(tomlText.value);
+
+            const notional = num(p.notional, 1000000);
+            const fixedRate = num(p.fixedrate, 0.03);
+            const frequency = Math.max(1, Math.round(num(p.frequency, 4)));
+            const valueDate = toDate(p.valuedate) || new Date();
+            const msYear = 365.25 * 24 * 60 * 60 * 1000;
+            const maturityDate =
+              toDate(p.maturitydate) || new Date(valueDate.getTime() + 5 * msYear);
+            const discountRate = num(p.discountrate, num(p.marketrate, fixedRate + 0.005));
+
+            const years = (maturityDate - valueDate) / msYear;
+            if (years <= 0) throw new Error("만기일은 평가일 이후여야 합니다.");
+
+            const dt = 1 / frequency;
+            const n = Math.max(1, Math.round(years * frequency));
+            const coupon = notional * fixedRate * dt;
+
+            function price(r) {
+              let pvC = 0;
+              let weightedT = 0;
+              for (let i = 1; i <= n; i++) {
+                const t = i * dt;
+                const df = Math.exp(-r * t);
+                pvC += coupon * df;
+                weightedT += t * coupon * df;
+              }
+              const T = n * dt;
+              const pvN = notional * Math.exp(-r * T);
+              weightedT += T * pvN;
+              const pv = pvC + pvN;
+              return { pv: pv, pvC: pvC, pvN: pvN, macaulay: weightedT / pv };
+            }
+
+            const base = price(discountRate);
+            const bumped = price(discountRate + 0.0001);
+            const dv01 = base.pv - bumped.pv;
+            const modDuration = dv01 / (0.0001 * base.pv);
+
+            result.value = {
+              pv: base.pv,
+              couponPv: base.pvC,
+              notionalPv: base.pvN,
+              coupon: coupon,
+              periods: n,
+              years: years,
+              dv01: dv01,
+              macaulay: base.macaulay,
+              modDuration: modDuration
+            };
+          } catch (e) {
+            result.value = null;
+            error.value = e.message || "평가 중 오류가 발생했습니다.";
+          }
+        }
+
+        function resetInput() {
+          tomlText.value = DEFAULT_TOML;
+          result.value = null;
+          error.value = "";
+        }
+
+        function insertTab(e) {
+          const el = e.target;
+          const s = el.selectionStart;
+          const en = el.selectionEnd;
+          tomlText.value =
+            tomlText.value.slice(0, s) + "  " + tomlText.value.slice(en);
+          requestAnimationFrame(function () {
+            el.selectionStart = el.selectionEnd = s + 2;
+          });
+        }
+
+        function fmt(v, d) {
+          if (d === undefined) d = 2;
+          if (typeof v !== "number" || !isFinite(v)) return "-";
+          return v.toLocaleString("en-US", {
+            minimumFractionDigits: d,
+            maximumFractionDigits: d
+          });
+        }
+
+        return {
+          tomlText: tomlText,
+          result: result,
+          error: error,
+          evaluate: evaluate,
+          resetInput: resetInput,
+          insertTab: insertTab,
+          fmt: fmt
+        };
+      }
+    }).mount("#pricing-tool");
+  </script>
 </body>
 </html>
