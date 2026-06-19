@@ -689,19 +689,56 @@ main {
   color: var(--muted);
 }
 
-.arch-arrows {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  justify-items: center;
-  color: var(--border-strong);
-  font-size: 1.15rem;
-  line-height: 1;
-  padding: 0.7rem 0;
+/* Flow connector — fan-in rail */
+.flow {
+  position: relative;
+  height: 52px;
 }
 
-.arch-arrows-single {
-  display: flex;
-  justify-content: center;
+.flow-drops {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 26px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.flow-drops span {
+  justify-self: center;
+  width: 2px;
+  height: 100%;
+  background: var(--border-strong);
+}
+
+.flow-rail {
+  position: absolute;
+  top: 25px;
+  left: 12.5%;
+  right: 12.5%;
+  height: 2px;
+  background: var(--border-strong);
+}
+
+.flow-merge {
+  position: absolute;
+  top: 25px;
+  bottom: 0;
+  left: calc(50% - 1px);
+  width: 2px;
+  background: var(--border-strong);
+}
+
+.flow-merge::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 7px solid var(--border-strong);
 }
 
 .arch-core {
@@ -736,13 +773,21 @@ main {
 }
 
 @media (max-width: 720px) {
-  .arch-row,
-  .arch-arrows {
+  .arch-row {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .arch-arrows span:nth-child(n + 3) {
+  .flow-drops {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .flow-drops span:nth-child(n + 3) {
     display: none;
+  }
+
+  .flow-rail {
+    left: 25%;
+    right: 25%;
   }
 }
 
