@@ -59,6 +59,69 @@
         </div>
 
         <div class="section-header">
+          <span class="section-label">Architecture</span>
+          <h2>통합 구조</h2>
+          <p>프론트오피스·리스크·스프레드시트·배치 등 모든 시스템이 하나의 평가 레이어를 공유합니다.</p>
+        </div>
+        <div class="arch-diagram" style="margin-bottom: 2.5rem;">
+          <p class="arch-caption">Many systems, one pricing layer</p>
+
+          <div class="arch-layer">
+            <span class="arch-layer-tag">Consuming Systems</span>
+            <div class="arch-row">
+              <div class="arch-node">
+                <h4>Front-office</h4>
+                <span>Murex · Calypso · 사내 시스템</span>
+              </div>
+              <div class="arch-node">
+                <h4>Risk Systems</h4>
+                <span>한도 · VaR · 스트레스 · 시나리오</span>
+              </div>
+              <div class="arch-node">
+                <h4>Spreadsheets</h4>
+                <span>데스크 도구 · 독립 검증</span>
+              </div>
+              <div class="arch-node">
+                <h4>Batch Processes</h4>
+                <span>EOD · 자동화 · 리포팅</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="arch-arrows"><span>↓</span><span>↓</span><span>↓</span><span>↓</span></div>
+
+          <div class="arch-layer">
+            <span class="arch-layer-tag">Interfaces</span>
+            <div class="arch-row">
+              <div class="arch-node">
+                <h4>C#</h4>
+                <span>.NET 연동</span>
+              </div>
+              <div class="arch-node">
+                <h4>Python</h4>
+                <span>분석 · 스크립팅</span>
+              </div>
+              <div class="arch-node">
+                <h4>Excel Function</h4>
+                <span>워크시트 함수</span>
+              </div>
+              <div class="arch-node">
+                <h4>REST API</h4>
+                <span>HTTP 연동</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="arch-arrows arch-arrows-single"><span>↓</span></div>
+
+          <div class="arch-core">
+            <span class="arch-core-label">Pricing Engine</span>
+            <h3>C++ Pricing Engine</h3>
+            <p>커브 · 평가 · 리스크 지표 · 현금흐름</p>
+          </div>
+        </div>
+
+        <div class="section-header">
           <span class="section-label">Why PricingAPI</span>
           <h2>핵심 강점</h2>
         </div>
@@ -82,8 +145,8 @@
           <div class="feature-box">
             <h3>간편한 연동</h3>
             <ul class="feature-list">
-              <li>언어 독립적 REST 인터페이스</li>
-              <li>TOML · JSON 입력 스키마</li>
+              <li>C# · Python · Excel Function</li>
+              <li>REST API · TOML · JSON 스키마</li>
               <li>명확한 문서와 샘플 코드</li>
             </ul>
           </div>

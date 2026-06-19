@@ -633,6 +633,119 @@ main {
   display: none;
 }
 
+/* Architecture diagram */
+.arch-diagram {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.75rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.arch-caption {
+  margin: 0 0 1.75rem;
+  text-align: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.arch-layer-tag {
+  display: block;
+  margin-bottom: 0.7rem;
+  text-align: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.arch-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.85rem;
+}
+
+.arch-node {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.95rem 1rem;
+  text-align: center;
+}
+
+.arch-node h4 {
+  margin: 0 0 0.3rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.arch-node span {
+  font-size: 0.76rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.arch-arrows {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
+  color: var(--border-strong);
+  font-size: 1.15rem;
+  line-height: 1;
+  padding: 0.7rem 0;
+}
+
+.arch-arrows-single {
+  display: flex;
+  justify-content: center;
+}
+
+.arch-core {
+  background: var(--hero-bg);
+  border-radius: var(--radius-lg);
+  padding: 1.7rem 1.75rem;
+  text-align: center;
+  color: #fff;
+}
+
+.arch-core-label {
+  display: block;
+  margin-bottom: 0.45rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #d6b77f;
+}
+
+.arch-core h3 {
+  margin: 0 0 0.4rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.arch-core p {
+  margin: 0;
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+@media (max-width: 720px) {
+  .arch-row,
+  .arch-arrows {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .arch-arrows span:nth-child(n + 3) {
+    display: none;
+  }
+}
+
 .toml-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
