@@ -504,10 +504,73 @@ main {
   margin-bottom: 0.85rem;
 }
 
+.card-title-group {
+  min-width: 0;
+}
+
 .card h3 {
   margin: 0;
   font-size: 1.1rem;
   font-weight: 600;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.card-version {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.12rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface-alt);
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+
+.card-version:hover {
+  border-color: #9acd32;
+  color: #6b9e23;
+  background: #f4f9e8;
+  text-decoration: none;
+}
+
+.card-blog {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.12rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface-alt);
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+
+.card-blog:hover {
+  border-color: var(--accent-line);
+  color: var(--accent);
+  background: var(--accent-soft);
+  text-decoration: none;
+}
+
+.card-type {
+  display: inline-block;
+  margin-top: 0.3rem;
+  color: #6b9e23;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
 }
 
 .card-badge {
@@ -558,6 +621,81 @@ main {
 .link-arrow:hover {
   text-decoration: none;
   gap: 0.55rem;
+}
+
+/* Program changelog */
+.program-updates-hero .page-back {
+  display: inline-flex;
+  margin-top: 1.25rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.program-updates-hero .page-back:hover {
+  text-decoration: none;
+}
+
+.changelog-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.changelog-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.changelog-item {
+  padding: 1.1rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.changelog-item:first-child {
+  padding-top: 0;
+}
+
+.changelog-item:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.changelog-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-bottom: 0.55rem;
+}
+
+.changelog-version {
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  background: #f4f9e8;
+  color: #6b9e23;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.changelog-meta time {
+  color: var(--muted);
+  font-size: 0.84rem;
+  font-weight: 500;
+}
+
+.changelog-item > ul {
+  margin: 0;
+  padding-left: 1.15rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.changelog-item > ul li + li {
+  margin-top: 0.3rem;
 }
 
 /* Feature list — pricing API */
