@@ -194,20 +194,32 @@
         <div class="section-header">
           <span class="section-label">Try it</span>
           <h2>실시간 평가 데모</h2>
-          <p>아래 TOML 입력값을 수정하고 <strong>평가 실행</strong> 버튼을 누르면 즉시 평가 결과를 확인할 수 있습니다.</p>
+          <p>상품을 선택하고 입력값을 수정한 후 <strong>평가 실행</strong> 버튼을 누르면 즉시 평가 결과를 확인할 수 있습니다.</p>
         </div>
         <div id="pricing-tool" class="toml-tool" style="margin-bottom: 2.5rem;" v-cloak>
           <div class="toml-grid">
             <div class="toml-editor">
               <div class="toml-editor-head">
-                <span>input.toml</span>
+                <div class="product-selector">
+                  <label for="product-select">상품:</label>
+                  <select id="product-select" v-model="selectedProduct" @change="onProductChange">
+                    <option value="FixedBond">FixedBond (고정금리 채권)</option>
+                    <option value="VanillaSwap">VanillaSwap (금리 스왑)</option>
+                    <option value="CRS">CRS (통화 스왑)</option>
+                    <option value="Option">Option (옵션)</option>
+                  </select>
+                </div>
+                <div class="format-toggle">
+                  <button type="button" class="btn btn-toggle" :class="{ active: format === 'toml' }" @click="setFormat('toml')">TOML</button>
+                  <button type="button" class="btn btn-toggle" :class="{ active: format === 'json' }" @click="setFormat('json')">JSON</button>
+                </div>
                 <button type="button" class="btn btn-outline btn-sm" @click="resetInput">초기화</button>
               </div>
               <textarea
                 class="toml-input"
-                v-model="tomlText"
+                v-model="inputText"
                 spellcheck="false"
-                rows="12"
+                rows="14"
                 @keydown.tab.prevent="insertTab"></textarea>
               <button type="button" class="btn btn-primary" @click="evaluate">평가 실행 →</button>
               <p class="toml-error" v-if="error">{{ error }}</p>
@@ -220,7 +232,7 @@
                 입력값을 확인하고<br>평가 실행 버튼을 눌러 주세요.
               </div>
 
-              <div v-else>
+              <div v-else-if="result.type === 'FixedBond'">
                 <div class="result-highlight">
                   <div class="label">Present Value (현재가치)</div>
                   <div class="value">{{ fmt(result.pv) }}</div>
@@ -236,6 +248,54 @@
                   <li><span class="k">Modified Duration</span><span class="v">{{ fmt(result.modDuration, 3) }}</span></li>
                 </ul>
                 <p class="toml-note">※ 본 결과는 브라우저에서 실행되는 데모 계산입니다. 실제 평가는 API 엔진을 통해 제공됩니다.</p>
+              </div>
+
+              <div v-else-if="result.type === 'VanillaSwap'">
+                <div class="result-highlight">
+                  <div class="label">Swap NPV (순현재가치)</div>
+                  <div class="value">{{ fmt(result.pv) }}</div>
+                </div>
+                <ul class="result-list">
+                  <li><span class="k">고정레그 PV (Pay)</span><span class="v">{{ fmt(result.fixedLegPv) }}</span></li>
+                  <li><span class="k">변동레그 PV (Receive)</span><span class="v">{{ fmt(result.floatLegPv) }}</span></li>
+                  <li><span class="k">현금흐름 횟수</span><span class="v">{{ result.periods }}</span></li>
+                  <li><span class="k">잔존만기 (년)</span><span class="v">{{ fmt(result.years, 2) }}</span></li>
+                  <li><span class="k">DV01 (1bp 민감도)</span><span class="v">{{ fmt(result.dv01, 2) }}</span></li>
+                </ul>
+                <p class="toml-note">※ 본 결과는 브라우저에서 실행되는 데모 계산입니다. 실제 평가는 API 엔진을 통해 제공됩니다.</p>
+              </div>
+
+              <div v-else-if="result.type === 'CRS'">
+                <div class="result-highlight">
+                  <div class="label">CRS NPV (순현재가치, KRW)</div>
+                  <div class="value">{{ fmt(result.pv) }}</div>
+                </div>
+                <ul class="result-list">
+                  <li><span class="k">원화레그 PV</span><span class="v">{{ fmt(result.domLegPv) }}</span></li>
+                  <li><span class="k">외화레그 PV (USD)</span><span class="v">{{ fmt(result.forLegPv) }}</span></li>
+                  <li><span class="k">외화레그 PV (KRW 환산)</span><span class="v">{{ fmt(result.forLegPvInDom) }}</span></li>
+                  <li><span class="k">현금흐름 횟수</span><span class="v">{{ result.periods }}</span></li>
+                  <li><span class="k">잔존만기 (년)</span><span class="v">{{ fmt(result.years, 2) }}</span></li>
+                  <li><span class="k">적용 환율</span><span class="v">{{ fmt(result.fxRate, 2) }}</span></li>
+                </ul>
+                <p class="toml-note">※ 본 결과는 브라우저에서 실행되는 데모 계산입니다. 실제 평가는 API 엔진을 통해 제공됩니다.</p>
+              </div>
+
+              <div v-else-if="result.type === 'Option'">
+                <div class="result-highlight">
+                  <div class="label">{{ result.optionType }} Option Price</div>
+                  <div class="value">{{ fmt(result.pv, 4) }}</div>
+                </div>
+                <ul class="result-list">
+                  <li><span class="k">기초자산 가격</span><span class="v">{{ fmt(result.spot, 2) }}</span></li>
+                  <li><span class="k">행사가</span><span class="v">{{ fmt(result.strike, 2) }}</span></li>
+                  <li><span class="k">잔존만기 (년)</span><span class="v">{{ fmt(result.years, 4) }}</span></li>
+                  <li><span class="k">Delta (Δ)</span><span class="v">{{ fmt(result.delta, 4) }}</span></li>
+                  <li><span class="k">Gamma (Γ)</span><span class="v">{{ fmt(result.gamma, 6) }}</span></li>
+                  <li><span class="k">Vega (1% 변동)</span><span class="v">{{ fmt(result.vega, 4) }}</span></li>
+                  <li><span class="k">Theta (일간)</span><span class="v">{{ fmt(result.theta, 4) }}</span></li>
+                </ul>
+                <p class="toml-note">※ Black-Scholes 모델 기반 데모 계산입니다. 실제 평가는 API 엔진을 통해 제공됩니다.</p>
               </div>
             </div>
           </div>
@@ -284,25 +344,136 @@
 
   <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
   <script>
-    const { createApp, ref } = Vue;
+    const { createApp, ref, computed } = Vue;
 
-    const DEFAULT_TOML = [
-      "# 고정금리 상품(금리스왑/채권) 입력값",
-      "notional = 1000000",
-      "fixedRate = 0.03",
-      "frequency = 4          # 연간 지급 횟수",
-      "valueDate = 2026-06-19",
-      "maturityDate = 2031-06-19",
-      "discountRate = 0.035"
-    ].join("\n");
+    const SAMPLES = {
+      FixedBond: {
+        toml: [
+          "# 고정금리 채권 (Fixed Bond)",
+          "productType = \"FixedBond\"",
+          "notional = 1000000",
+          "fixedRate = 0.03",
+          "frequency = 4          # 연간 지급 횟수",
+          "valueDate = 2026-06-19",
+          "maturityDate = 2031-06-19",
+          "discountRate = 0.035"
+        ].join("\n"),
+        json: JSON.stringify({
+          productType: "FixedBond",
+          notional: 1000000,
+          fixedRate: 0.03,
+          frequency: 4,
+          valueDate: "2026-06-19",
+          maturityDate: "2031-06-19",
+          discountRate: 0.035
+        }, null, 2)
+      },
+      VanillaSwap: {
+        toml: [
+          "# 금리 스왑 (Vanilla Interest Rate Swap)",
+          "productType = \"VanillaSwap\"",
+          "notional = 10000000",
+          "fixedRate = 0.025       # 고정금리 (Pay)",
+          "floatSpread = 0.001     # 변동금리 스프레드",
+          "frequency = 2           # 반기 지급",
+          "valueDate = 2026-06-19",
+          "maturityDate = 2031-06-19",
+          "discountRate = 0.028",
+          "forwardRate = 0.027     # 현재 변동금리"
+        ].join("\n"),
+        json: JSON.stringify({
+          productType: "VanillaSwap",
+          notional: 10000000,
+          fixedRate: 0.025,
+          floatSpread: 0.001,
+          frequency: 2,
+          valueDate: "2026-06-19",
+          maturityDate: "2031-06-19",
+          discountRate: 0.028,
+          forwardRate: 0.027
+        }, null, 2)
+      },
+      CRS: {
+        toml: [
+          "# 통화 스왑 (Cross Currency Swap)",
+          "productType = \"CRS\"",
+          "notionalDom = 1000000000  # 원화 명목금액",
+          "notionalFor = 750000      # 외화 명목금액 (USD)",
+          "fixedRateDom = 0.035      # 원화 고정금리",
+          "fixedRateFor = 0.045      # 외화 고정금리",
+          "frequency = 4             # 분기 지급",
+          "valueDate = 2026-06-19",
+          "maturityDate = 2031-06-19",
+          "discountRateDom = 0.038",
+          "discountRateFor = 0.048",
+          "fxRate = 1333.33          # 현재 환율 (KRW/USD)"
+        ].join("\n"),
+        json: JSON.stringify({
+          productType: "CRS",
+          notionalDom: 1000000000,
+          notionalFor: 750000,
+          fixedRateDom: 0.035,
+          fixedRateFor: 0.045,
+          frequency: 4,
+          valueDate: "2026-06-19",
+          maturityDate: "2031-06-19",
+          discountRateDom: 0.038,
+          discountRateFor: 0.048,
+          fxRate: 1333.33
+        }, null, 2)
+      },
+      Option: {
+        toml: [
+          "# 옵션 (European Option - Black-Scholes)",
+          "productType = \"Option\"",
+          "optionType = \"Call\"      # Call 또는 Put",
+          "spot = 100                # 기초자산 현재가",
+          "strike = 105              # 행사가",
+          "volatility = 0.2          # 변동성 (20%)",
+          "riskFreeRate = 0.03       # 무위험 이자율",
+          "valueDate = 2026-06-19",
+          "maturityDate = 2027-06-19",
+          "dividendYield = 0.01      # 배당수익률"
+        ].join("\n"),
+        json: JSON.stringify({
+          productType: "Option",
+          optionType: "Call",
+          spot: 100,
+          strike: 105,
+          volatility: 0.2,
+          riskFreeRate: 0.03,
+          valueDate: "2026-06-19",
+          maturityDate: "2027-06-19",
+          dividendYield: 0.01
+        }, null, 2)
+      }
+    };
 
     createApp({
       setup() {
-        const tomlText = ref(DEFAULT_TOML);
+        const selectedProduct = ref("FixedBond");
+        const format = ref("toml");
+        const inputText = ref(SAMPLES.FixedBond.toml);
         const result = ref(null);
         const error = ref("");
 
-        function parseToml(text) {
+        function onProductChange() {
+          inputText.value = SAMPLES[selectedProduct.value][format.value];
+          result.value = null;
+          error.value = "";
+        }
+
+        function setFormat(newFormat) {
+          format.value = newFormat;
+          inputText.value = SAMPLES[selectedProduct.value][newFormat];
+          result.value = null;
+          error.value = "";
+        }
+
+        function parseInput(text) {
+          if (format.value === "json") {
+            return JSON.parse(text);
+          }
           const obj = {};
           text.split(/\r?\n/).forEach(function (raw) {
             const line = raw.trim();
@@ -339,56 +510,181 @@
         function evaluate() {
           error.value = "";
           try {
-            const p = parseToml(tomlText.value);
+            const p = parseInput(inputText.value);
+            const productType = (p.productType || p.producttype || selectedProduct.value).toString();
 
-            const notional = num(p.notional, 1000000);
-            const fixedRate = num(p.fixedrate, 0.03);
-            const frequency = Math.max(1, Math.round(num(p.frequency, 4)));
-            const valueDate = toDate(p.valuedate) || new Date();
             const msYear = 365.25 * 24 * 60 * 60 * 1000;
-            const maturityDate =
-              toDate(p.maturitydate) || new Date(valueDate.getTime() + 5 * msYear);
-            const discountRate = num(p.discountrate, num(p.marketrate, fixedRate + 0.005));
 
-            const years = (maturityDate - valueDate) / msYear;
-            if (years <= 0) throw new Error("만기일은 평가일 이후여야 합니다.");
+            if (productType === "FixedBond" || productType === "VanillaSwap") {
+              const notional = num(p.notional, 1000000);
+              const fixedRate = num(p.fixedRate || p.fixedrate, 0.03);
+              const frequency = Math.max(1, Math.round(num(p.frequency, 4)));
+              const valueDate = toDate(p.valueDate || p.valuedate) || new Date();
+              const maturityDate = toDate(p.maturityDate || p.maturitydate) || new Date(valueDate.getTime() + 5 * msYear);
+              const discountRate = num(p.discountRate || p.discountrate, fixedRate + 0.005);
 
-            const dt = 1 / frequency;
-            const n = Math.max(1, Math.round(years * frequency));
-            const coupon = notional * fixedRate * dt;
+              const years = (maturityDate - valueDate) / msYear;
+              if (years <= 0) throw new Error("만기일은 평가일 이후여야 합니다.");
 
-            function price(r) {
-              let pvC = 0;
-              let weightedT = 0;
+              const dt = 1 / frequency;
+              const n = Math.max(1, Math.round(years * frequency));
+              const coupon = notional * fixedRate * dt;
+
+              function price(r) {
+                let pvC = 0;
+                let weightedT = 0;
+                for (let i = 1; i <= n; i++) {
+                  const t = i * dt;
+                  const df = Math.exp(-r * t);
+                  pvC += coupon * df;
+                  weightedT += t * coupon * df;
+                }
+                const T = n * dt;
+                const pvN = notional * Math.exp(-r * T);
+                weightedT += T * pvN;
+                const pv = pvC + pvN;
+                return { pv: pv, pvC: pvC, pvN: pvN, macaulay: weightedT / pv };
+              }
+
+              const base = price(discountRate);
+              const bumped = price(discountRate + 0.0001);
+              const dv01 = base.pv - bumped.pv;
+              const modDuration = dv01 / (0.0001 * base.pv);
+
+              if (productType === "VanillaSwap") {
+                const forwardRate = num(p.forwardRate || p.forwardrate, discountRate);
+                const floatSpread = num(p.floatSpread || p.floatspread, 0);
+                const floatLeg = notional * (1 - Math.exp(-forwardRate * years));
+                const fixedLeg = base.pvC;
+                const swapPv = floatLeg - fixedLeg;
+
+                result.value = {
+                  type: "VanillaSwap",
+                  pv: swapPv,
+                  fixedLegPv: fixedLeg,
+                  floatLegPv: floatLeg,
+                  periods: n,
+                  years: years,
+                  dv01: dv01
+                };
+              } else {
+                result.value = {
+                  type: "FixedBond",
+                  pv: base.pv,
+                  couponPv: base.pvC,
+                  notionalPv: base.pvN,
+                  coupon: coupon,
+                  periods: n,
+                  years: years,
+                  dv01: dv01,
+                  macaulay: base.macaulay,
+                  modDuration: modDuration
+                };
+              }
+            } else if (productType === "CRS") {
+              const notionalDom = num(p.notionalDom || p.notionaldom, 1000000000);
+              const notionalFor = num(p.notionalFor || p.notionalfor, 750000);
+              const fixedRateDom = num(p.fixedRateDom || p.fixedratedom, 0.035);
+              const fixedRateFor = num(p.fixedRateFor || p.fixedratefor, 0.045);
+              const frequency = Math.max(1, Math.round(num(p.frequency, 4)));
+              const valueDate = toDate(p.valueDate || p.valuedate) || new Date();
+              const maturityDate = toDate(p.maturityDate || p.maturitydate) || new Date(valueDate.getTime() + 5 * msYear);
+              const discountRateDom = num(p.discountRateDom || p.discountratedom, fixedRateDom + 0.003);
+              const discountRateFor = num(p.discountRateFor || p.discountratefor, fixedRateFor + 0.003);
+              const fxRate = num(p.fxRate || p.fxrate, 1333.33);
+
+              const years = (maturityDate - valueDate) / msYear;
+              if (years <= 0) throw new Error("만기일은 평가일 이후여야 합니다.");
+
+              const dt = 1 / frequency;
+              const n = Math.max(1, Math.round(years * frequency));
+
+              let domLegPv = 0;
               for (let i = 1; i <= n; i++) {
                 const t = i * dt;
-                const df = Math.exp(-r * t);
-                pvC += coupon * df;
-                weightedT += t * coupon * df;
+                domLegPv += notionalDom * fixedRateDom * dt * Math.exp(-discountRateDom * t);
               }
-              const T = n * dt;
-              const pvN = notional * Math.exp(-r * T);
-              weightedT += T * pvN;
-              const pv = pvC + pvN;
-              return { pv: pv, pvC: pvC, pvN: pvN, macaulay: weightedT / pv };
+              domLegPv += notionalDom * Math.exp(-discountRateDom * years);
+
+              let forLegPv = 0;
+              for (let i = 1; i <= n; i++) {
+                const t = i * dt;
+                forLegPv += notionalFor * fixedRateFor * dt * Math.exp(-discountRateFor * t);
+              }
+              forLegPv += notionalFor * Math.exp(-discountRateFor * years);
+
+              const forLegPvInDom = forLegPv * fxRate;
+              const crsPv = domLegPv - forLegPvInDom;
+
+              result.value = {
+                type: "CRS",
+                pv: crsPv,
+                domLegPv: domLegPv,
+                forLegPv: forLegPv,
+                forLegPvInDom: forLegPvInDom,
+                periods: n,
+                years: years,
+                fxRate: fxRate
+              };
+            } else if (productType === "Option") {
+              const optionType = (p.optionType || p.optiontype || "Call").toString();
+              const spot = num(p.spot, 100);
+              const strike = num(p.strike, 105);
+              const volatility = num(p.volatility, 0.2);
+              const riskFreeRate = num(p.riskFreeRate || p.riskfreerate, 0.03);
+              const valueDate = toDate(p.valueDate || p.valuedate) || new Date();
+              const maturityDate = toDate(p.maturityDate || p.maturitydate) || new Date(valueDate.getTime() + msYear);
+              const dividendYield = num(p.dividendYield || p.dividendyield, 0);
+
+              const years = (maturityDate - valueDate) / msYear;
+              if (years <= 0) throw new Error("만기일은 평가일 이후여야 합니다.");
+
+              function normCdf(x) {
+                const a1 = 0.254829592, a2 = -0.284496736, a3 = 1.421413741;
+                const a4 = -1.453152027, a5 = 1.061405429, p = 0.3275911;
+                const sign = x < 0 ? -1 : 1;
+                x = Math.abs(x) / Math.sqrt(2);
+                const t = 1 / (1 + p * x);
+                const y = 1 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-x * x);
+                return 0.5 * (1 + sign * y);
+              }
+
+              const sqrtT = Math.sqrt(years);
+              const d1 = (Math.log(spot / strike) + (riskFreeRate - dividendYield + 0.5 * volatility * volatility) * years) / (volatility * sqrtT);
+              const d2 = d1 - volatility * sqrtT;
+
+              let price, delta, gamma, vega, theta, rho;
+              const discountFactor = Math.exp(-riskFreeRate * years);
+              const dividendFactor = Math.exp(-dividendYield * years);
+
+              if (optionType === "Call" || optionType === "call") {
+                price = spot * dividendFactor * normCdf(d1) - strike * discountFactor * normCdf(d2);
+                delta = dividendFactor * normCdf(d1);
+              } else {
+                price = strike * discountFactor * normCdf(-d2) - spot * dividendFactor * normCdf(-d1);
+                delta = -dividendFactor * normCdf(-d1);
+              }
+
+              const nd1 = Math.exp(-d1 * d1 / 2) / Math.sqrt(2 * Math.PI);
+              gamma = dividendFactor * nd1 / (spot * volatility * sqrtT);
+              vega = spot * dividendFactor * nd1 * sqrtT / 100;
+              theta = -(spot * dividendFactor * nd1 * volatility / (2 * sqrtT)) / 365;
+
+              result.value = {
+                type: "Option",
+                optionType: optionType,
+                pv: price,
+                delta: delta,
+                gamma: gamma,
+                vega: vega,
+                theta: theta,
+                years: years,
+                spot: spot,
+                strike: strike
+              };
+            } else {
+              throw new Error("지원하지 않는 상품 유형입니다: " + productType);
             }
-
-            const base = price(discountRate);
-            const bumped = price(discountRate + 0.0001);
-            const dv01 = base.pv - bumped.pv;
-            const modDuration = dv01 / (0.0001 * base.pv);
-
-            result.value = {
-              pv: base.pv,
-              couponPv: base.pvC,
-              notionalPv: base.pvN,
-              coupon: coupon,
-              periods: n,
-              years: years,
-              dv01: dv01,
-              macaulay: base.macaulay,
-              modDuration: modDuration
-            };
           } catch (e) {
             result.value = null;
             error.value = e.message || "평가 중 오류가 발생했습니다.";
@@ -396,7 +692,7 @@
         }
 
         function resetInput() {
-          tomlText.value = DEFAULT_TOML;
+          inputText.value = SAMPLES[selectedProduct.value][format.value];
           result.value = null;
           error.value = "";
         }
@@ -405,8 +701,7 @@
           const el = e.target;
           const s = el.selectionStart;
           const en = el.selectionEnd;
-          tomlText.value =
-            tomlText.value.slice(0, s) + "  " + tomlText.value.slice(en);
+          inputText.value = inputText.value.slice(0, s) + "  " + inputText.value.slice(en);
           requestAnimationFrame(function () {
             el.selectionStart = el.selectionEnd = s + 2;
           });
@@ -422,9 +717,13 @@
         }
 
         return {
-          tomlText: tomlText,
+          selectedProduct: selectedProduct,
+          format: format,
+          inputText: inputText,
           result: result,
           error: error,
+          onProductChange: onProductChange,
+          setFormat: setFormat,
           evaluate: evaluate,
           resetInput: resetInput,
           insertTab: insertTab,
