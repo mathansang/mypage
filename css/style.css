@@ -933,6 +933,15 @@ main {
   font-size: 0.82rem;
 }
 
+.func-sample-filename {
+  color: #64748b;
+  font-size: 0.82rem;
+}
+
+.func-sample-block + .func-sample-block {
+  margin-top: 0;
+}
+
 .info-panel {
   background: var(--surface);
   border: 1px solid var(--border);

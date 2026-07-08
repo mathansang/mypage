@@ -12,6 +12,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 TARGET = ROOT / "pricing-api.html"
 FUNC_DIR = ROOT / "functions"
 SAMPLES_DIR = FUNC_DIR / "samples"
+SAMPLES_RESULT_DIR = SAMPLES_DIR / "results"
 MARKER = '        <div class="section-header">\n          <span class="section-label">Documentation</span>'
 TEST_JSON_DIR = ROOT.parent / "TestPricing" / "API" / "json"
 LOCAL_JSON_DIR = ROOT / "api" / "json"
@@ -162,11 +163,27 @@ def iter_functions() -> list[tuple[str, str, str, str]]:
 
 def resolve_json_path(name: str) -> pathlib.Path | None:
     filename = JSON_ALIASES.get(name, f"{name}.json")
-    for base in (LOCAL_JSON_DIR, TEST_JSON_DIR):
+    for base in (SAMPLES_DIR, LOCAL_JSON_DIR, TEST_JSON_DIR):
         path = base / filename
         if path.is_file():
             return path
     return None
+
+
+def resolve_result_path(request_filename: str) -> pathlib.Path | None:
+    path = SAMPLES_RESULT_DIR / request_filename
+    if path.is_file():
+        return path
+    for base in (TEST_JSON_DIR / "results", LOCAL_JSON_DIR / "results"):
+        path = base / request_filename
+        if path.is_file():
+            return path
+    return None
+
+
+def sample_request_filename(name: str) -> str | None:
+    path = resolve_json_path(name)
+    return path.name if path else None
 
 
 def load_sample_json(name: str) -> tuple[str | None, str | None]:
@@ -181,28 +198,51 @@ def load_sample_json(name: str) -> tuple[str | None, str | None]:
     return path.name, pretty
 
 
+def sample_block(filename: str, version_label: str, rel_path: str, role: str) -> str:
+    loading = u("\\ubd88\\ub7ec\\uc624\\ub294 \\uc911\\u2026") if role == "request" else u("\\ubd88\\ub7ec\\uc624\\ub294 \\uc911\\u2026")
+    return (
+        '          <li class="changelog-item func-sample-block">\n'
+        '            <div class="changelog-meta">\n'
+        '              <span class="changelog-version">'
+        + version_label
+        + "</span>\n"
+        '              <span class="func-sample-filename">'
+        + html.escape(filename)
+        + "</span>\n"
+        "            </div>\n"
+        '            <pre class="func-json-sample" data-sample="'
+        + html.escape(rel_path)
+        + '" data-role="'
+        + html.escape(role)
+        + '">'
+        + loading
+        + "</pre>\n"
+        "          </li>\n"
+    )
+
+
 def param_items(func_name: str, args: str) -> str:
     rows = get_param_docs(func_name, args)
     if not rows:
         return "<li>" + u("\\uc785\\ub825 \\ud30c\\ub77c\\ubbf8\\ud130\\uac00 \\uc5c6\\uc2b5\\ub2c8\\ub2e4.") + "</li>"
     parts: list[str] = []
-    for name, desc in rows:
+    for pname, desc in rows:
         if desc:
             parts.append(
                 '<li class="func-param-item"><code>'
-                + html.escape(name)
+                + html.escape(pname)
                 + "</code><span>"
                 + html.escape(desc)
                 + "</span></li>"
             )
         else:
-            parts.append("<li><code>" + html.escape(name) + "</code></li>")
+            parts.append("<li><code>" + html.escape(pname) + "</code></li>")
     return "".join(parts)
 
 
 def sample_section(name: str) -> str:
-    filename, pretty = load_sample_json(name)
-    if not pretty:
+    filename = sample_request_filename(name)
+    if not filename:
         return (
             '          <li class="changelog-item">\n'
             '            <div class="changelog-meta">\n'
@@ -215,20 +255,11 @@ def sample_section(name: str) -> str:
             + "</p>\n"
             "          </li>\n"
         )
+    request_rel = "samples/" + filename
+    result_rel = "samples/results/" + filename
     return (
-        '          <li class="changelog-item">\n'
-        '            <div class="changelog-meta">\n'
-        '              <span class="changelog-version">'
-        + u("\\uc0d8\\ud50c \\uc694\\uccad")
-        + "</span>\n"
-        "              <span>"
-        + html.escape(filename or "")
-        + "</span>\n"
-        "            </div>\n"
-        '            <pre class="func-json-sample">'
-        + html.escape(pretty)
-        + "</pre>\n"
-        "          </li>\n"
+        sample_block(filename, u("\\uc0d8\\ud50c \\uc694\\uccad"), request_rel, "request")
+        + sample_block(filename, u("\\uc694\\uccad \\uacb0\\uacfc"), result_rel, "result")
     )
 
 
@@ -362,6 +393,7 @@ def page_html(name: str, args: str, desc: str, category_title: str) -> str:
         '      <div class="footer-bottom">&copy; 2026 QuantDev. All rights reserved.</div>\n'
         "    </div>\n"
         "  </footer>\n"
+        '  <script src="func-samples.js"></script>\n'
         "</body>\n</html>\n"
     )
 
@@ -387,13 +419,19 @@ def build_catalog() -> str:
 def generate_detail_pages() -> int:
     FUNC_DIR.mkdir(parents=True, exist_ok=True)
     SAMPLES_DIR.mkdir(parents=True, exist_ok=True)
+    SAMPLES_RESULT_DIR.mkdir(parents=True, exist_ok=True)
     count = 0
     for name, args, desc, cat in iter_functions():
         out = FUNC_DIR / f"{name}.html"
         out.write_text(page_html(name, args, desc, cat), encoding="utf-8", newline="\n")
         src = resolve_json_path(name)
-        if src:
+        if src and src.parent != SAMPLES_DIR:
             shutil.copy2(src, SAMPLES_DIR / src.name)
+        req_name = sample_request_filename(name)
+        if req_name:
+            src_result = resolve_result_path(req_name)
+            if src_result and src_result.parent != SAMPLES_RESULT_DIR:
+                shutil.copy2(src_result, SAMPLES_RESULT_DIR / req_name)
         count += 1
     return count
 
