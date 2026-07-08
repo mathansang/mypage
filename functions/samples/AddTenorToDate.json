@@ -1,0 +1,14 @@
+{
+    "args": [
+        {
+            "dates": [
+                "2024-01-02"
+            ],
+            "tenors": [
+                "1Y"
+            ],
+            "calendar": "krx",
+            "lagDays": 0
+        }
+    ]
+}

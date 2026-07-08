@@ -1,0 +1,26 @@
+{
+    "args": [
+        {
+            "notional": 1000000,
+            "maturityTenor": "5Y",
+            "basisSpread": 0.001,
+            "swapSide": "rec",
+            "exchangeRate": 1.0,
+            "tradeDate": "2024-01-02",
+            "swapCode": "ccbs_usdkrw_sofr_cd",
+            "baseCurveData": 0.03,
+            "quoteCurveData": 0.03,
+            "fxSpot": 1.0,
+            "valueDate": "2024-01-03",
+            "outputType": "pricing",
+            "optionArg": ""
+        },
+        {
+            "label": "input_items",
+            "notional": 1000000,
+            "valueDate": "2024-01-03",
+            "outputType": "input_items",
+            "optionArg": ""
+        }
+    ]
+}

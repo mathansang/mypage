@@ -1,0 +1,40 @@
+{
+    "args": [
+        {
+            "curveData": [
+                [
+                    "tenor",
+                    "type",
+                    "date",
+                    "quote"
+                ],
+                [
+                    "0D",
+                    "zero_krw_cd",
+                    "2024-01-02",
+                    0.03
+                ],
+                [
+                    "1Y",
+                    "deposite",
+                    null,
+                    0.03
+                ],
+                [
+                    "5Y",
+                    "swap",
+                    null,
+                    0.035
+                ]
+            ],
+            "forwardStartDates": [
+                "2025-01-02"
+            ],
+            "forwardEndDates": [
+                "2026-01-02"
+            ],
+            "compounding": "continuous",
+            "frequency": "annual"
+        }
+    ]
+}

@@ -1,0 +1,34 @@
+{
+    "args": [
+        {
+            "refDate": "2024-01-02",
+            "fixedQuoteData": [
+                [
+                    "tenor",
+                    "type",
+                    "quote"
+                ],
+                [
+                    "1Y",
+                    "swap",
+                    0.03
+                ]
+            ],
+            "curveType": "zero_krw_cd",
+            "baseCurveData": [
+                [
+                    "tenor",
+                    "type",
+                    "quote"
+                ],
+                [
+                    "1Y",
+                    "deposite",
+                    0.028
+                ]
+            ],
+            "fxRate": 1300,
+            "optionArg": ""
+        }
+    ]
+}

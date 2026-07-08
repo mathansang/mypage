@@ -1,0 +1,43 @@
+{
+    "args": [
+        {
+            "refDate": "2024-01-02",
+            "swapQuoteData": [
+                [
+                    "tenor",
+                    "type",
+                    "quote"
+                ],
+                [
+                    "1Y",
+                    "swap",
+                    0.03
+                ],
+                [
+                    "2Y",
+                    "swap",
+                    0.031
+                ]
+            ],
+            "curveType": "zero_krw_kofr",
+            "discountCurveData": [
+                [
+                    "tenor",
+                    "type",
+                    "quote"
+                ],
+                [
+                    "1Y",
+                    "deposite",
+                    0.028
+                ],
+                [
+                    "2Y",
+                    "swap",
+                    0.029
+                ]
+            ],
+            "optionArg": ""
+        }
+    ]
+}

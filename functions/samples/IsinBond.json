@@ -1,0 +1,21 @@
+{
+    "args": [
+        {
+            "label": "pricing",
+            "isin": "KR103501GZ89",
+            "notional": 1000000,
+            "curveData": 0.025,
+            "valueDate": "2024-01-03",
+            "outputType": "pricing",
+            "optionArg": ""
+        },
+        {
+            "label": "input_items",
+            "isin": "KR103501GZ89",
+            "notional": 1000000,
+            "valueDate": "2024-01-03",
+            "outputType": "input_items",
+            "optionArg": ""
+        }
+    ]
+}

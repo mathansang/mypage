@@ -1,0 +1,26 @@
+{
+    "args": [
+        {
+            "label": "pricing",
+            "notional": 10000000000,
+            "optionTenor": "1Y",
+            "swapTenor": "5Y",
+            "strike": "atm",
+            "swapSide": "rec",
+            "tradeDate": "2024-01-02",
+            "swaptionCode": "swaption_krw_cd",
+            "normalVol": 0.004,
+            "curveData": 0.025,
+            "valueDate": "2024-01-03",
+            "outputType": "pricing",
+            "optionArg": ""
+        },
+        {
+            "label": "input_items",
+            "notional": 10000000000,
+            "valueDate": "2024-01-03",
+            "outputType": "input_items",
+            "optionArg": ""
+        }
+    ]
+}

@@ -1,0 +1,26 @@
+{
+    "args": [
+        {
+            "refDate": "2024-01-02",
+            "curveData": [
+                [
+                    "tenor",
+                    "quote"
+                ],
+                [
+                    "1Y",
+                    0.03
+                ],
+                [
+                    "5Y",
+                    0.035
+                ]
+            ],
+            "ufr": 0.042,
+            "alpha": 0.05,
+            "cpnPerYear": 2,
+            "outTimes": null,
+            "optionArg": ""
+        }
+    ]
+}

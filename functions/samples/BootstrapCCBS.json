@@ -1,0 +1,46 @@
+{
+    "args": [
+        {
+            "refDate": "2024-01-02",
+            "basisQuoteData": [
+                [
+                    "tenor",
+                    "type",
+                    "quote"
+                ],
+                [
+                    "1Y",
+                    "basis",
+                    0.001
+                ]
+            ],
+            "curveType": "zero_usd_sofr",
+            "baseCurveData": [
+                [
+                    "tenor",
+                    "type",
+                    "quote"
+                ],
+                [
+                    "1Y",
+                    "deposite",
+                    0.05
+                ]
+            ],
+            "quoteCurveData": [
+                [
+                    "tenor",
+                    "type",
+                    "quote"
+                ],
+                [
+                    "1Y",
+                    "deposite",
+                    0.048
+                ]
+            ],
+            "fxSpot": 1300,
+            "optionArg": ""
+        }
+    ]
+}

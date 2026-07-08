@@ -301,6 +301,321 @@
           </div>
         </div>
 
+        <div class="section-header" id="functions">
+          <span class="section-label">Functions</span>
+          <h2>지원 함수 목록</h2>
+          <p>Excel Function · REST API · C# · Python에서 동일한 함수명으로 호출할 수 있습니다. 그룹을 펼치면 함수명·입력 파라미터·설명을 확인할 수 있습니다.</p>
+        </div>
+        <div class="func-catalog" style="margin-bottom: 2.5rem;">
+          <details class="func-category">
+            <summary class="func-category-summary">
+              <span class="func-category-title">곡선 부트스트랩</span>
+              <span class="func-category-meta">7개</span>
+            </summary>
+            <ul class="func-list">
+              <li>
+                <code class="func-sig"><span class="func-fn">BootstrapBond</span><span class="func-paren">(</span><span class="func-params">refDate, yieldQuoteData, curveType</span><span class="func-paren">)</span></code>
+                <div class="func-desc-row">
+                  <p class="func-desc">채권 Par·YTM 견적으로 할인·스팟 금리 곡선을 구축합니다.</p>
+                  <a class="card-version func-detail-link" href="functions/BootstrapBond.html">상세</a>
+                </div>
+              </li>
+              <li>
+                <code class="func-sig"><span class="func-fn">BootstrapIRS</span><span class="func-paren">(</span><span class="func-params">refDate, swapQuoteData, curveType</span><span class="func-paren">)</span></code>
+                <div class="func-desc-row">
+                  <p class="func-desc">금리스왑 견적으로 IBOR/OIS 할인·전방 곡선을 부트스트랩합니다.</p>
+                  <a class="card-version func-detail-link" href="functions/BootstrapIRS.html">상세</a>
+                </div>
+              </li>
+              <li>
+                <code class="func-sig"><span class="func-fn">BootstrapIRSDual</span><span class="func-paren">(</span><span class="func-params">refDate, swapQuoteData, curveType, discountCurveData</span><span class="func-paren">)</span></code>
+                <div class="func-desc-row">
+                  <p class="func-desc">스왑 곡선과 별도 할인 곡선을 사용하는 듀얼 커브 부트스트랩을 수행합니다.</p>
+                  <a class="card-version func-detail-link" href="functions/BootstrapIRSDual.html">상세</a>
+                </div>
+              </li>
+              <li>
+                <code class="func-sig"><span class="func-fn">BootstrapSmithWilsonFSS</span><span class="func-paren">(</span><span class="func-params">refDate, curveData, ufr, alpha, cpnPerYear, outTimes</span><span class="func-paren">)</span></code>
+                <div class="func-desc-row">
+                  <p class="func-desc">Smith-Wilson 방법으로 장기 금리 곡선을 생성합니다.</p>
+                  <a class="card-version func-detail-link" href="functions/BootstrapSmithWilsonFSS.html">상세</a>
+                </div>
+              </li>
+              <li>
+                <code class="func-sig"><span class="func-fn">SmithWilsonFitAlpha</span><span class="func-paren">(</span><span class="func-params">refDate, curveData, ufr, convergenceT, tolerance</span><span class="func-paren">)</span></code>
+                <div class="func-desc-row">
+                  <p class="func-desc">Smith-Wilson 보간에 사용할 수령 파라미터 α를 시장 데이터에 맞게 추정합니다.</p>
+                  <a class="card-version func-detail-link" href="functions/SmithWilsonFitAlpha.html">상세</a>
+                </div>
+              </li>
+              <li>
+                <code class="func-sig"><span class="func-fn">BootstrapCCBS</span><span class="func-paren">(</span><span class="func-params">refDate, basisQuoteData, curveType, baseCurveData, quoteCurveData, fxSpot</span><span class="func-paren">)</span></code>
+                <div class="func-desc-row">
+                  <p class="func-desc">교차통화 베이시스 스왑 견적으로 CCBS 곡선을 구축합니다.</p>
+                  <a class="card-version func-detail-link" href="functions/BootstrapCCBS.html">상세</a>
+                </div>
+              </li>
+              <li>
+                <code class="func-sig"><span class="func-fn">BootstrapCCFS</span><span class="func-paren">(</span><span class="func-params">refDate, fixedQuoteData, curveType, baseCurveData, fxRate</span><span class="func-paren">)</span></code>
+                <div class="func-desc-row">
+                  <p class="func-desc">교차통화 고정금리 스왑 견적으로 외화 할인 곡선을 부트스트랩합니다.</p>
+                  <a class="card-version func-detail-link" href="functions/BootstrapCCFS.html">상세</a>
+                </div>
+              </li>
+            </ul>
+          </details>
+          <details class="func-category">
+            <summary class="func-category-summary">
+              <span class="func-category-title">곡선 변환·보간</span>
+              <span class="func-category-meta">8개</span>
+            </summary>
+            <ul class="func-list">
+              <li>
+                <code class="func-sig"><span class="func-fn">InterpolateYieldCurve</span><span class="func-paren">(</span><span class="func-params">refDate, curveData, dateOrTime</span><span class="func-paren">)</span></code>
+                <div class="func-desc-row">
+                  <p class="func-desc">구축된 곡선에서 특정 일자·만기 지점의 금리를 보간합니다.</p>
+                  <a class="card-version func-detail-link" href="functions/InterpolateYieldCurve.html">상세</a>
+                </div>
+              </li>
+              <li>
+                <code class="func-sig"><span class="func-fn">ShockYieldCurve</span><span class="func-paren">(</span><span class="func-params">refDate, curveData, shockCode, dateOrTime, shockMultiple, outputType</span><span class="func-paren">)</span></code>
+                <div class="func-desc-row">
+                  <p class="func-desc">병렬·스포트 등 시나리오 충격을 적용한 충격 곡선을 산출합니다.</p>
+                  <a class="card-version func-detail-link" href="functions/ShockYieldCurve.html">상세</a>
+                </div>
+              </li>
+              <li>
+                <code class="func-sig"><span class="func-fn">YieldCurve</span><span class="func-paren">(</span><span class="func-params">refDate, curveData, curveType</span><span class="func-paren">)</span></code>
+                <div class="func-desc-row">
+                  <p class="func-desc">곡선 데이터로 YieldCurve 객체를 생성하고 조회합니다.</p>
+                  <a class="card-version func-detail-link" href="functions/YieldCurve.html">상세</a>
+                </div>
+              </li>
+              <li>
+                <code class="func-sig"><span class="func-fn">ForwardRateFromYC</span><span class="func-paren">(</span><span class="func-params">curveData, forwardStartDates, forwardEndDates, compounding, frequency</span><span class="func-paren">)</span></code>
+                <div class="func-desc-row">
+                  <p class="func-desc">yield curve로부터 지정 구간의 전방 금리를 계산합니다.</p>
+                  <a class="card-version func-detail-link" href="functions/ForwardRateFromYC.html">상세</a>
+                </div>
+              </li>
+              <li>
+                <code class="func-sig"><span class="func-fn">ConvertToCurve</span><span class="func-paren">(</span><span class="func-params">tenors, values, inputType, compounding, output_compounding</span><span class="func-paren">)</span></code>
+                <div class="func-desc-row">
+                  <p class="func-desc">테너·금리 시리즈를 다른 컴파운딩 방식의 곡선 형태로 변환합니다.</p>
+                  <a class="card-version func-detail-link" href="functions/ConvertToCurve.html">상세</a>
+                </div>
+              </li>
+              <li>
+                <code class="func-sig"><span class="func-fn">ConvertToSpotRate</span><span class="func-paren">(</span><span class="func-params">tenors, values, inputType, compounding, output_compounding</span><span class="func-paren">)</span></code>
+                <div class="func-desc-row">
+                  <p class="func-desc">Par·Forward·Discount 등 입력 금리를 스팟 금리로 변환합니다.</p>
+                  <a class="card-version func-detail-link" href="functions/ConvertToSpotRate.html">상세</a>
+                </div>
+              </li>
+              <li>
+                <code class="func-sig"><span class="func-fn">ConvertToForwardRate</span><span class="func-paren">(</span><span class="func-params">tenors, values, inputType, compounding, output_compounding</span><span class="func-paren">)</span></code>
+                <div class="func-desc-row">
+                  <p class="func-desc">입력 금리를 전방 금리로 변환합니다.</p>
+                  <a class="card-version func-detail-link" href="functions/ConvertToForwardRate.html">상세</a>
+                </div>
+              </li>
+              <li>
+                <code class="func-sig"><span class="func-fn">ConvertToDiscount</span><span class="func-paren">(</span><span class="func-params">tenors, values, inputType, compounding, output_compounding</span><span class="func-paren">)</span></code>
+                <div class="func-desc-row">
+                  <p class="func-desc">입력 금리를 할인계수로 변환합니다.</p>
+                  <a class="card-version func-detail-link" href="functions/ConvertToDiscount.html">상세</a>
+                </div>
+              </li>
+            </ul>
+          </details>
+          <details class="func-category">
+            <summary class="func-category-summary">
+              <span class="func-category-title">일자·금리 유틸리티</span>
+              <span class="func-category-meta">6개</span>
+            </summary>
+            <ul class="func-list">
+              <li>
+                <code class="func-sig"><span class="func-fn">TenorToTimes</span><span class="func-paren">(</span><span class="func-params">tenors</span><span class="func-paren">)</span></code>
+                <div class="func-desc-row">
+                  <p class="func-desc">만기 표기(1M, 3Y 등)를 연 단위 경과 시간으로 변환합니다.</p>
+                  <a class="card-version func-detail-link" href="functions/TenorToTimes.html">상세</a>
+                </div>
+              </li>
+              <li>
+                <code class="func-sig"><span class="func-fn">DateToTimes</span><span class="func-paren">(</span><span class="func-params">dates, refDate, daycounter</span><span class="func-paren">)</span></code>
+                <div class="func-desc-row">
+                  <p class="func-desc">날짜를 기준일 대비 연 단위 경과 시간으로 변환합니다.</p>
+                  <a class="card-version func-detail-link" href="functions/DateToTimes.html">상세</a>
+                </div>
+              </li>
+              <li>
+                <code class="func-sig"><span class="func-fn">TimeToTenors</span><span class="func-paren">(</span><span class="func-params">times</span><span class="func-paren">)</span></code>
+                <div class="func-desc-row">
+                  <p class="func-desc">연 단위 시간을 표준 만기 테너로 역변환합니다.</p>
+                  <a class="card-version func-detail-link" href="functions/TimeToTenors.html">상세</a>
+                </div>
+              </li>
+              <li>
+                <code class="func-sig"><span class="func-fn">AddTenorToDate</span><span class="func-paren">(</span><span class="func-params">dates, tenors, calendar, lagDays</span><span class="func-paren">)</span></code>
+                <div class="func-desc-row">
+                  <p class="func-desc">날짜에 만기 테너를 더해 새 만기일을 계산합니다.</p>
+                  <a class="card-version func-detail-link" href="functions/AddTenorToDate.html">상세</a>
+                </div>
+              </li>
+              <li>
+                <code class="func-sig"><span class="func-fn">ToCompoundRate</span><span class="func-paren">(</span><span class="func-params">dateOrTimes, contiRate, freqPerYear, dayCounter, calendar, refDate</span><span class="func-paren">)</span></code>
+                <div class="func-desc-row">
+                  <p class="func-desc">연속복리 금리를 지정 복리 주기의 복리 금리로 변환합니다.</p>
+                  <a class="card-version func-detail-link" href="functions/ToCompoundRate.html">상세</a>
+                </div>
+              </li>
+              <li>
+                <code class="func-sig"><span class="func-fn">ToContinuousRate</span><span class="func-paren">(</span><span class="func-params">dateOrTimes, compoundRate, freqPerYear, dayCounter, calendar, refDate</span><span class="func-paren">)</span></code>
+                <div class="func-desc-row">
+                  <p class="func-desc">복리 금리를 연속복리 금리로 변환합니다.</p>
+                  <a class="card-version func-detail-link" href="functions/ToContinuousRate.html">상세</a>
+                </div>
+              </li>
+            </ul>
+          </details>
+          <details class="func-category">
+            <summary class="func-category-summary">
+              <span class="func-category-title">채권·대출</span>
+              <span class="func-category-meta">7개</span>
+            </summary>
+            <ul class="func-list">
+              <li>
+                <code class="func-sig"><span class="func-fn">FixedBond</span><span class="func-paren">(</span><span class="func-params">notional, maturity, fixedRate, issueDate, bondCode, curveData, valueDate, outputType</span><span class="func-paren">)</span></code>
+                <div class="func-desc-row">
+                  <p class="func-desc">고정금리채권의 가격, 현금흐름, DV01·듀레이션을 산출합니다.</p>
+                  <a class="card-version func-detail-link" href="functions/FixedBond.html">상세</a>
+                </div>
+              </li>
+              <li>
+                <code class="func-sig"><span class="func-fn">FloatBond</span><span class="func-paren">(</span><span class="func-params">notional, maturity, spread, issueDate, bondCode, indexCurveData, curveData, valueDate, outputType</span><span class="func-paren">)</span></code>
+                <div class="func-desc-row">
+                  <p class="func-desc">변동금리채권의 NPV·쿠폰·민감도를 평가합니다.</p>
+                  <a class="card-version func-detail-link" href="functions/FloatBond.html">상세</a>
+                </div>
+              </li>
+              <li>
+                <code class="func-sig"><span class="func-fn">BondForward</span><span class="func-paren">(</span><span class="func-params">notional, delivery, strike, maturity, fixedRate, bondSide, issueDate, bondCode, curveData, valueDate, outputType</span><span class="func-paren">)</span></code>
+                <div class="func-desc-row">
+                  <p class="func-desc">채권 선도 계약의 공정가치를 계산합니다.</p>
+                  <a class="card-version func-detail-link" href="functions/BondForward.html">상세</a>
+                </div>
+              </li>
+              <li>
+                <code class="func-sig"><span class="func-fn">IsinBond</span><span class="func-paren">(</span><span class="func-params">isin, notional, curveData, valueDate, outputType</span><span class="func-paren">)</span></code>
+                <div class="func-desc-row">
+                  <p class="func-desc">ISIN 코드 기반 채권 평가를 수행합니다.</p>
+                  <a class="card-version func-detail-link" href="functions/IsinBond.html">상세</a>
+                </div>
+              </li>
+              <li>
+                <code class="func-sig"><span class="func-fn">IsinBondInfo</span><span class="func-paren">(</span><span class="func-params">isin</span><span class="func-paren">)</span></code>
+                <div class="func-desc-row">
+                  <p class="func-desc">ISIN에 해당하는 채권 기본 정보를 조회합니다.</p>
+                  <a class="card-version func-detail-link" href="functions/IsinBondInfo.html">상세</a>
+                </div>
+              </li>
+              <li>
+                <code class="func-sig"><span class="func-fn">FixedLoan</span><span class="func-paren">(</span><span class="func-params">principal, balance, maturity, fixedRate, loanSide, loanDate, loanCode, gracePeriod, curveData, defaultData, earlyRedemRate, valueDate, outputType</span><span class="func-paren">)</span></code>
+                <div class="func-desc-row">
+                  <p class="func-desc">고정금리 대출의 NPV, 상환 스케줄 및 부도 반영 평가를 수행합니다.</p>
+                  <a class="card-version func-detail-link" href="functions/FixedLoan.html">상세</a>
+                </div>
+              </li>
+              <li>
+                <code class="func-sig"><span class="func-fn">FloatLoan</span><span class="func-paren">(</span><span class="func-params">principal, balance, maturity, spread, loanSide, gracePeriod, amortization, inArrears, loanDate, loanCode, indexCurveData, curveData, defaultData, earlyRedemRate, valueDate, outputType</span><span class="func-paren">)</span></code>
+                <div class="func-desc-row">
+                  <p class="func-desc">변동금리 대출의 NPV·OAS·스프레드 등을 평가합니다.</p>
+                  <a class="card-version func-detail-link" href="functions/FloatLoan.html">상세</a>
+                </div>
+              </li>
+            </ul>
+          </details>
+          <details class="func-category">
+            <summary class="func-category-summary">
+              <span class="func-category-title">스왑·TRS</span>
+              <span class="func-category-meta">5개</span>
+            </summary>
+            <ul class="func-list">
+              <li>
+                <code class="func-sig"><span class="func-fn">VanillaSwap</span><span class="func-paren">(</span><span class="func-params">notional, maturityTenor, fixedRate, swapSide, tradeDate, swapCode, curveData, valueDate, outputType</span><span class="func-paren">)</span></code>
+                <div class="func-desc-row">
+                  <p class="func-desc">이자율 스왑(고정 vs 변동)의 NPV, 레그 PV, DV01을 산출합니다.</p>
+                  <a class="card-version func-detail-link" href="functions/VanillaSwap.html">상세</a>
+                </div>
+              </li>
+              <li>
+                <code class="func-sig"><span class="func-fn">VanillaCRSwap</span><span class="func-paren">(</span><span class="func-params">notional, maturityTenor, fixedRate, swapSide, exchangeRate, tradeDate, swapCode, baseCurveData, quoteCurveData, fxSpot, valueDate, outputType</span><span class="func-paren">)</span></code>
+                <div class="func-desc-row">
+                  <p class="func-desc">교차통화 스왑(CRS)의 양 통화 레그 NPV와 순자산가치를 평가합니다.</p>
+                  <a class="card-version func-detail-link" href="functions/VanillaCRSwap.html">상세</a>
+                </div>
+              </li>
+              <li>
+                <code class="func-sig"><span class="func-fn">VanillaBSwap</span><span class="func-paren">(</span><span class="func-params">notional, maturityTenor, basisSpread, swapSide, exchangeRate, tradeDate, swapCode, baseCurveData, quoteCurveData, fxSpot, valueDate, outputType</span><span class="func-paren">)</span></code>
+                <div class="func-desc-row">
+                  <p class="func-desc">통화별 변동금리 지표가 다른 베이시스 스왑을 평가합니다.</p>
+                  <a class="card-version func-detail-link" href="functions/VanillaBSwap.html">상세</a>
+                </div>
+              </li>
+              <li>
+                <code class="func-sig"><span class="func-fn">GeneralSwap</span><span class="func-paren">(</span><span class="func-params">inputData</span><span class="func-paren">)</span></code>
+                <div class="func-desc-row">
+                  <p class="func-desc">커스텀 스케줄·레그 구조를 가진 일반 스왑을 평가합니다. inputData 테이블에 레그별 조건을 정의합니다.</p>
+                  <a class="card-version func-detail-link" href="functions/GeneralSwap.html">상세</a>
+                </div>
+              </li>
+              <li>
+                <code class="func-sig"><span class="func-fn">TRSFixed</span><span class="func-paren">(</span><span class="func-params">refAssetType, refAssetData, notional, maturityTenor, fixedRate, tradeDate, swapCode, curveData, valueDate, outputType</span><span class="func-paren">)</span></code>
+                <div class="func-desc-row">
+                  <p class="func-desc">고정금리 총수익스왑(TRS)의 공정가치를 계산합니다.</p>
+                  <a class="card-version func-detail-link" href="functions/TRSFixed.html">상세</a>
+                </div>
+              </li>
+            </ul>
+          </details>
+          <details class="func-category">
+            <summary class="func-category-summary">
+              <span class="func-category-title">신용·옵션</span>
+              <span class="func-category-meta">4개</span>
+            </summary>
+            <ul class="func-list">
+              <li>
+                <code class="func-sig"><span class="func-fn">CDS</span><span class="func-paren">(</span><span class="func-params">notional, maturityTenor, fixedRate, tradeDate, swapCode, defaultCurveData, curveData, valueDate, outputType</span><span class="func-paren">)</span></code>
+                <div class="func-desc-row">
+                  <p class="func-desc">신용부도스왑(CDS)의 NPV, 기본스프레드, 리스크 지표를 평가합니다.</p>
+                  <a class="card-version func-detail-link" href="functions/CDS.html">상세</a>
+                </div>
+              </li>
+              <li>
+                <code class="func-sig"><span class="func-fn">CLNFixed</span><span class="func-paren">(</span><span class="func-params">notional, maturityTenor, fixedRate, issueDate, bondCode, defaultCurveData, curveData, valueDate, outputType</span><span class="func-paren">)</span></code>
+                <div class="func-desc-row">
+                  <p class="func-desc">고정금리 신용연계채권(CLN)의 가격을 산출합니다.</p>
+                  <a class="card-version func-detail-link" href="functions/CLNFixed.html">상세</a>
+                </div>
+              </li>
+              <li>
+                <code class="func-sig"><span class="func-fn">CLNFloat</span><span class="func-paren">(</span><span class="func-params">notional, maturityTenor, spread, issueDate, bondCode, defaultCurveData, indexCurveData, curveData, valueDate, outputType</span><span class="func-paren">)</span></code>
+                <div class="func-desc-row">
+                  <p class="func-desc">변동금리 CLN의 NPV·스프레드 등을 평가합니다.</p>
+                  <a class="card-version func-detail-link" href="functions/CLNFloat.html">상세</a>
+                </div>
+              </li>
+              <li>
+                <code class="func-sig"><span class="func-fn">Swaption</span><span class="func-paren">(</span><span class="func-params">notional, optionTenor, swapTenor, strike, swapSide, tradeDate, swaptionCode, normalVol, curveData, valueDate, outputType</span><span class="func-paren">)</span></code>
+                <div class="func-desc-row">
+                  <p class="func-desc">금리스왑션의 가격과 Delta·Vega 등 민감도를 산출합니다.</p>
+                  <a class="card-version func-detail-link" href="functions/Swaption.html">상세</a>
+                </div>
+              </li>
+            </ul>
+          </details>
+        </div>
+
         <div class="section-header">
           <span class="section-label">Documentation</span>
           <h2>API 문서</h2>

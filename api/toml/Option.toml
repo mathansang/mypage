@@ -1,0 +1,10 @@
+# 옵션 (European Option - Black-Scholes)
+productType = "Option"
+optionType = "Call"
+spot = 100
+strike = 105
+volatility = 0.2
+riskFreeRate = 0.03
+valueDate = "2026-06-19"
+maturityDate = "2027-06-19"
+dividendYield = 0.01

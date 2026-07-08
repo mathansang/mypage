@@ -1,0 +1,36 @@
+{
+    "args": [
+        {
+            "notional": 1000000,
+            "maturity": "5Y",
+            "spread": 0.005,
+            "issueDate": "2024-01-02",
+            "bondCode": "bond_krw_cd3m",
+            "indexCurveData": 0.025,
+            "curveData": 0.025,
+            "valueDate": "2024-01-03",
+            "outputType": "pricing",
+            "optionArg": ""
+        },
+        {
+            "notional": 1000000,
+            "maturity": "5Y",
+            "spread": 0.005,
+            "issueDate": "2024-01-02",
+            "bondCode": "bond_krw_cd3m",
+            "indexCurveData": 0.025,
+            "curveData": 0.025,
+            "valueDate": "2024-01-03",
+            "outputType": "cashflow_detail",
+            "optionArg": ""
+        },
+        {
+            "label": "input_items",
+            "notional": 1000000,
+            "valueDate": "2024-01-03",
+            "outputType": "input_items",
+            "optionArg": ""
+        }
+
+    ]
+}

@@ -1,0 +1,10 @@
+# 금리 스왑 (Vanilla Interest Rate Swap)
+notional = 10000000000
+maturityTenor = "5Y"
+fixedRate = 0.0398
+swapSide = "rec"
+tradeDate = "2024-12-31"
+swapCode = "swap_krw_kofr"
+valueDate = "2026-04-15"
+outputType = "pricing"
+optionArg = ""

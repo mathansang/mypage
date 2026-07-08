@@ -1,0 +1,23 @@
+{
+    "args": [
+        {
+            "label": "pricing",
+            "notional": 1000000,
+            "maturity": "5Y",
+            "fixedRate": 0.03,
+            "issueDate": "2024-01-02",
+            "bondCode": "bond_krw_ktb",
+            "curveData": 0.025,
+            "valueDate": "2024-01-03",
+            "outputType": "pricing",
+            "optionArg": ""
+        },
+        {
+            "label": "input_items",
+            "notional": 1000000,
+            "valueDate": "2024-01-03",
+            "outputType": "input_items",
+            "optionArg": ""
+        }
+    ]
+}

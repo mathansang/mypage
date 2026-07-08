@@ -1,0 +1,29 @@
+{
+    "args": [
+        {
+            "refDate": "2024-01-02",
+            "curveData": [
+                [
+                    "tenor",
+                    "type",
+                    "quote"
+                ],
+                [
+                    "1Y",
+                    "deposite",
+                    0.03
+                ],
+                [
+                    "5Y",
+                    "swap",
+                    0.035
+                ]
+            ],
+            "dateOrTime": [
+                "2025-01-02",
+                "2027-01-02"
+            ],
+            "optionArg": ""
+        }
+    ]
+}

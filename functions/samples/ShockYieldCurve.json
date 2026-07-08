@@ -1,0 +1,34 @@
+{
+    "args": [
+        {
+            "refDate": "2024-01-02",
+            "curveData": [
+                [
+                    "tenor",
+                    "quote"
+                ],
+                [
+                    "1Y",
+                    0.03
+                ],
+                [
+                    "5Y",
+                    0.035
+                ]
+            ],
+            "shockCode": "shock_zero1bp",
+            "dateOrTime": [
+                "2025-01-02",
+                "2027-01-02"
+            ],
+            "shockMultiple": 1.0,
+            "optionArg": ""
+        },
+        {
+            "label": "input_items",
+            "refDate": "2024-01-02",
+            "outputType": "input_items",
+            "optionArg": ""
+        }
+    ]
+}

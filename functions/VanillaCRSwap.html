@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="VanillaCRSwap — PricingAPI XLFunction">
+  <title>VanillaCRSwap | PricingAPI</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="../index.html">
+        <span class="logo-name">QuantDev</span>
+        <span class="logo-tagline">Financial Engineering</span>
+      </a>
+      <div class="header-right">
+        <nav>
+          <ul>
+            <li><a href="../index.html">소개</a></li>
+            <li><a href="../programs.html">Programs</a></li>
+            <li><a href="../portfolios.html">Portfolios</a></li>
+            <li><a href="../pricing-api.html" class="active">PricingAPI</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+          </ul>
+        </nav>
+        <a class="btn btn-primary header-cta" href="../contact.html">문의하기</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero program-updates-hero func-detail-hero">
+      <div class="container">
+        <p class="eyebrow">PricingAPI · 스왑·TRS</p>
+        <h1>VanillaCRSwap</h1>
+        <div><code class="func-sig"><span class="func-fn">VanillaCRSwap</span><span class="func-paren">(</span><span class="func-params">notional, maturityTenor, fixedRate, swapSide, exchangeRate, tradeDate, swapCode, baseCurveData, quoteCurveData, fxSpot, valueDate, outputType</span><span class="func-paren">)</span></code></div>
+        <a class="page-back" href="../pricing-api.html#functions">← 지원 함수 목록으로</a>
+      </div>
+    </section>
+
+    <section class="page-body">
+      <div class="container">
+        <div class="changelog-panel">
+          <ol class="changelog-list">
+            <li class="changelog-item">
+              <div class="changelog-meta">
+                <span class="changelog-version">개요</span>
+              </div>
+              <p>교차통화 스왑(CRS)의 양 통화 레그 NPV와 순자산가치를 평가합니다.</p>
+            </li>
+            <li class="changelog-item">
+              <div class="changelog-meta">
+                <span class="changelog-version">입력 파라미터</span>
+              </div>
+              <ul>
+<li><code>notional</code></li><li><code>maturityTenor</code></li><li><code>fixedRate</code></li><li><code>swapSide</code></li><li><code>exchangeRate</code></li><li><code>tradeDate</code></li><li><code>swapCode</code></li><li><code>baseCurveData</code></li><li><code>quoteCurveData</code></li><li><code>fxSpot</code></li><li><code>valueDate</code></li><li><code>outputType</code></li>              </ul>
+            </li>
+            <li class="changelog-item">
+              <div class="changelog-meta">
+                <span class="changelog-version">API</span>
+              </div>
+              <ul>
+<li><code>POST /xlfunction/VanillaCRSwap</code></li>
+<li>Excel Function·C#·Python 클라이언트에서 동일한 함수명으로 호출</li>
+              </ul>
+            </li>
+          <li class="changelog-item">
+            <div class="changelog-meta">
+              <span class="changelog-version">샘플 요청</span>
+              <span>VanillaCRSwap.json</span>
+            </div>
+            <pre class="func-json-sample">{
+  &quot;args&quot;: [
+    {
+      &quot;notional&quot;: 1000000,
+      &quot;maturityTenor&quot;: &quot;5Y&quot;,
+      &quot;fixedRate&quot;: 0.03,
+      &quot;swapSide&quot;: &quot;rec&quot;,
+      &quot;exchangeRate&quot;: 1350.0,
+      &quot;tradeDate&quot;: &quot;2024-01-02&quot;,
+      &quot;swapCode&quot;: &quot;ccs_usdkrw_sofr_fixed&quot;,
+      &quot;baseCurveData&quot;: 0.03,
+      &quot;quoteCurveData&quot;: 0.03,
+      &quot;fxSpot&quot;: 1350.0,
+      &quot;valueDate&quot;: &quot;2024-01-03&quot;,
+      &quot;outputType&quot;: &quot;pricing&quot;,
+      &quot;optionArg&quot;: &quot;&quot;
+    },
+    {
+      &quot;label&quot;: &quot;input_items&quot;,
+      &quot;notional&quot;: 1000000,
+      &quot;valueDate&quot;: &quot;2024-01-03&quot;,
+      &quot;outputType&quot;: &quot;input_items&quot;,
+      &quot;optionArg&quot;: &quot;&quot;
+    }
+  ]
+}</pre>
+          </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo-name">QuantDev</div>
+          <p>금융공학 및 개발 서비스를 제공하는 개인 전문가 포트폴리오입니다.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="../index.html">소개</a></li>
+            <li><a href="../programs.html">Programs</a></li>
+            <li><a href="../pricing-api.html">PricingAPI</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="../contact.html">문의하기</a></li>
+            <li><a href="../portfolios.html">Portfolios</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">&copy; 2026 QuantDev. All rights reserved.</div>
+    </div>
+  </footer>
+</body>
+</html>

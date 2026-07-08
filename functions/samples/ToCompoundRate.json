@@ -1,0 +1,16 @@
+{
+    "args": [
+        {
+            "dateOrTimes": [
+                "2025-01-02"
+            ],
+            "contiRate": [
+                0.03
+            ],
+            "freqPerYear": 2,
+            "dayCounter": "Act365Fixed",
+            "calendar": "",
+            "refDate": "2024-01-02"
+        }
+    ]
+}

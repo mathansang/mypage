@@ -1,0 +1,24 @@
+{
+    "args": [
+        {
+            "label": "pricing",
+            "notional": 10000000,
+            "maturityTenor": "5Y",
+            "fixedRate": 0.01,
+            "tradeDate": "2024-01-02",
+            "swapCode": "cds_krw",
+            "defaultCurveData": 0.02,
+            "curveData": 0.025,
+            "valueDate": "2024-01-03",
+            "outputType": "pricing",
+            "optionArg": ""
+        },
+        {
+            "label": "input_items",
+            "notional": 10000000,
+            "valueDate": "2024-01-03",
+            "outputType": "input_items",
+            "optionArg": ""
+        }
+    ]
+}

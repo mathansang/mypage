@@ -1,0 +1,35 @@
+{
+    "args": [
+        {
+            "refDate": "2024-01-02",
+            "curveData": [
+                [
+                    "tenor",
+                    "type",
+                    "date",
+                    "quote"
+                ],
+                [
+                    "0D",
+                    "zero_krw_cd",
+                    "2024-01-02",
+                    0.03
+                ],
+                [
+                    "1Y",
+                    "deposite",
+                    null,
+                    0.03
+                ],
+                [
+                    "5Y",
+                    "swap",
+                    null,
+                    0.035
+                ]
+            ],
+            "curveType": "zero_krw_cd",
+            "optionArg": ""
+        }
+    ]
+}

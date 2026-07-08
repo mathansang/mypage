@@ -1,0 +1,17 @@
+{
+    "args": [
+        {
+            "tenors": [
+                "1Y",
+                "5Y"
+            ],
+            "values": [
+                0.03,
+                0.035
+            ],
+            "inputType": "spotrate",
+            "compounding": "continuous",
+            "output_compounding": "annual"
+        }
+    ]
+}

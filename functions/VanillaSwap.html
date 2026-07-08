@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="VanillaSwap — PricingAPI XLFunction">
+  <title>VanillaSwap | PricingAPI</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="../index.html">
+        <span class="logo-name">QuantDev</span>
+        <span class="logo-tagline">Financial Engineering</span>
+      </a>
+      <div class="header-right">
+        <nav>
+          <ul>
+            <li><a href="../index.html">소개</a></li>
+            <li><a href="../programs.html">Programs</a></li>
+            <li><a href="../portfolios.html">Portfolios</a></li>
+            <li><a href="../pricing-api.html" class="active">PricingAPI</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+          </ul>
+        </nav>
+        <a class="btn btn-primary header-cta" href="../contact.html">문의하기</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero program-updates-hero func-detail-hero">
+      <div class="container">
+        <p class="eyebrow">PricingAPI · 스왑·TRS</p>
+        <h1>VanillaSwap</h1>
+        <div><code class="func-sig"><span class="func-fn">VanillaSwap</span><span class="func-paren">(</span><span class="func-params">notional, maturityTenor, fixedRate, swapSide, tradeDate, swapCode, curveData, valueDate, outputType</span><span class="func-paren">)</span></code></div>
+        <a class="page-back" href="../pricing-api.html#functions">← 지원 함수 목록으로</a>
+      </div>
+    </section>
+
+    <section class="page-body">
+      <div class="container">
+        <div class="changelog-panel">
+          <ol class="changelog-list">
+            <li class="changelog-item">
+              <div class="changelog-meta">
+                <span class="changelog-version">개요</span>
+              </div>
+              <p>이자율 스왑(고정 vs 변동)의 NPV, 레그 PV, DV01을 산출합니다.</p>
+            </li>
+            <li class="changelog-item">
+              <div class="changelog-meta">
+                <span class="changelog-version">입력 파라미터</span>
+              </div>
+              <ul>
+<li><code>notional</code></li><li><code>maturityTenor</code></li><li><code>fixedRate</code></li><li><code>swapSide</code></li><li><code>tradeDate</code></li><li><code>swapCode</code></li><li><code>curveData</code></li><li><code>valueDate</code></li><li><code>outputType</code></li>              </ul>
+            </li>
+            <li class="changelog-item">
+              <div class="changelog-meta">
+                <span class="changelog-version">API</span>
+              </div>
+              <ul>
+<li><code>POST /xlfunction/VanillaSwap</code></li>
+<li>Excel Function·C#·Python 클라이언트에서 동일한 함수명으로 호출</li>
+              </ul>
+            </li>
+          <li class="changelog-item">
+            <div class="changelog-meta">
+              <span class="changelog-version">샘플 요청</span>
+              <span>VanillaSwap.json</span>
+            </div>
+            <pre class="func-json-sample">{
+  &quot;args&quot;: [
+    {
+      &quot;notional&quot;: 10000000000,
+      &quot;maturityTenor&quot;: &quot;5Y&quot;,
+      &quot;fixedRate&quot;: 0.0398,
+      &quot;swapSide&quot;: &quot;rec&quot;,
+      &quot;tradeDate&quot;: &quot;2024-12-31&quot;,
+      &quot;swapCode&quot;: &quot;swap_krw_kofr&quot;,
+      &quot;curveData&quot;: [
+        [
+          &quot;tenor&quot;,
+          &quot;type&quot;,
+          &quot;quote&quot;
+        ],
+        [
+          &quot;0D&quot;,
+          &quot;zero_krw_kofr&quot;,
+          0.03617
+        ],
+        [
+          &quot;ON&quot;,
+          &quot;deposite&quot;,
+          0.03617
+        ],
+        [
+          &quot;1W&quot;,
+          &quot;swap&quot;,
+          0.035705
+        ],
+        [
+          &quot;1M&quot;,
+          &quot;swap&quot;,
+          0.035664
+        ],
+        [
+          &quot;2M&quot;,
+          &quot;swap&quot;,
+          0.035611
+        ],
+        [
+          &quot;3M&quot;,
+          &quot;swap&quot;,
+          0.035559
+        ],
+        [
+          &quot;6M&quot;,
+          &quot;swap&quot;,
+          0.0383
+        ],
+        [
+          &quot;9M&quot;,
+          &quot;swap&quot;,
+          0.038925
+        ],
+        [
+          &quot;1Y&quot;,
+          &quot;swap&quot;,
+          0.0393
+        ],
+        [
+          &quot;18M&quot;,
+          &quot;swap&quot;,
+          0.0394
+        ],
+        [
+          &quot;2Y&quot;,
+          &quot;swap&quot;,
+          0.03945
+        ],
+        [
+          &quot;3Y&quot;,
+          &quot;swap&quot;,
+          0.03955
+        ],
+        [
+          &quot;4Y&quot;,
+          &quot;swap&quot;,
+          0.0397
+        ],
+        [
+          &quot;5Y&quot;,
+          &quot;swap&quot;,
+          0.0398
+        ],
+        [
+          &quot;6Y&quot;,
+          &quot;swap&quot;,
+          0.03985
+        ],
+        [
+          &quot;7Y&quot;,
+          &quot;swap&quot;,
+          0.0399
+        ],
+        [
+          &quot;8Y&quot;,
+          &quot;swap&quot;,
+          0.039925
+        ],
+        [
+          &quot;9Y&quot;,
+          &quot;swap&quot;,
+          0.040075
+        ],
+        [
+          &quot;10Y&quot;,
+          &quot;swap&quot;,
+          0.040175
+        ],
+        [
+          &quot;12Y&quot;,
+          &quot;swap&quot;,
+          0.040325
+        ],
+        [
+          &quot;15Y&quot;,
+          &quot;swap&quot;,
+          0.0404
+        ],
+        [
+          &quot;20Y&quot;,
+          &quot;swap&quot;,
+          0.0402
+        ],
+        [
+          &quot;25Y&quot;,
+          &quot;swap&quot;,
+          0.03925
+        ],
+        [
+          &quot;30Y&quot;,
+          &quot;swap&quot;,
+          0.03805
+        ]
+      ],
+      &quot;valueDate&quot;: &quot;2026-04-15&quot;,
+      &quot;outputType&quot;: &quot;pricing&quot;,
+      &quot;optionArg&quot;: &quot;&quot;
+    },
+    {
+      &quot;notional&quot;: 10000000000,
+      &quot;maturityTenor&quot;: &quot;5Y&quot;,
+      &quot;fixedRate&quot;: 0.0398,
+      &quot;swapSide&quot;: &quot;rec&quot;,
+      &quot;tradeDate&quot;: &quot;2024-12-31&quot;,
+      &quot;swapCode&quot;: &quot;swap_krw_kofr&quot;,
+      &quot;curveData&quot;: [
+        [
+          &quot;tenor&quot;,
+          &quot;type&quot;,
+          &quot;quote&quot;
+        ],
+        [
+          &quot;0D&quot;,
+          &quot;zero_krw_kofr&quot;,
+          0.03617
+        ],
+        [
+          &quot;ON&quot;,
+          &quot;deposite&quot;,
+          0.03617
+        ],
+        [
+          &quot;1W&quot;,
+          &quot;swap&quot;,
+          0.035705
+        ],
+        [
+          &quot;1M&quot;,
+          &quot;swap&quot;,
+          0.035664
+        ],
+        [
+          &quot;2M&quot;,
+          &quot;swap&quot;,
+          0.035611
+        ],
+        [
+          &quot;3M&quot;,
+          &quot;swap&quot;,
+          0.035559
+        ],
+        [
+          &quot;6M&quot;,
+          &quot;swap&quot;,
+          0.0383
+        ],
+        [
+          &quot;9M&quot;,
+          &quot;swap&quot;,
+          0.038925
+        ],
+        [
+          &quot;1Y&quot;,
+          &quot;swap&quot;,
+          0.0393
+        ],
+        [
+          &quot;18M&quot;,
+          &quot;swap&quot;,
+          0.0394
+        ],
+        [
+          &quot;2Y&quot;,
+          &quot;swap&quot;,
+          0.03945
+        ],
+        [
+          &quot;3Y&quot;,
+          &quot;swap&quot;,
+          0.03955
+        ],
+        [
+          &quot;4Y&quot;,
+          &quot;swap&quot;,
+          0.0397
+        ],
+        [
+          &quot;5Y&quot;,
+          &quot;swap&quot;,
+          0.0398
+        ],
+        [
+          &quot;6Y&quot;,
+          &quot;swap&quot;,
+          0.03985
+        ],
+        [
+          &quot;7Y&quot;,
+          &quot;swap&quot;,
+          0.0399
+        ],
+        [
+          &quot;8Y&quot;,
+          &quot;swap&quot;,
+          0.039925
+        ],
+        [
+          &quot;9Y&quot;,
+          &quot;swap&quot;,
+          0.040075
+        ],
+        [
+          &quot;10Y&quot;,
+          &quot;swap&quot;,
+          0.040175
+        ],
+        [
+          &quot;12Y&quot;,
+          &quot;swap&quot;,
+          0.040325
+        ],
+        [
+          &quot;15Y&quot;,
+          &quot;swap&quot;,
+          0.0404
+        ],
+        [
+          &quot;20Y&quot;,
+          &quot;swap&quot;,
+          0.0402
+        ],
+        [
+          &quot;25Y&quot;,
+          &quot;swap&quot;,
+          0.03925
+        ],
+        [
+          &quot;30Y&quot;,
+          &quot;swap&quot;,
+          0.03805
+        ]
+      ],
+      &quot;valueDate&quot;: &quot;2026-04-15&quot;,
+      &quot;outputType&quot;: &quot;cashflow_detail&quot;,
+      &quot;optionArg&quot;: &quot;&quot;
+    },
+    {
+      &quot;notional&quot;: 10000000000,
+      &quot;maturityTenor&quot;: &quot;5Y&quot;,
+      &quot;fixedRate&quot;: 0.0398,
+      &quot;swapSide&quot;: &quot;rec&quot;,
+      &quot;tradeDate&quot;: &quot;2024-12-31&quot;,
+      &quot;swapCode&quot;: &quot;swap_krw_kofr&quot;,
+      &quot;curveData&quot;: [
+        [
+          &quot;tenor&quot;,
+          &quot;type&quot;,
+          &quot;quote&quot;
+        ],
+        [
+          &quot;0D&quot;,
+          &quot;zero_krw_kofr&quot;,
+          0.03617
+        ],
+        [
+          &quot;ON&quot;,
+          &quot;deposite&quot;,
+          0.03617
+        ],
+        [
+          &quot;1W&quot;,
+          &quot;swap&quot;,
+          0.035705
+        ],
+        [
+          &quot;1M&quot;,
+          &quot;swap&quot;,
+          0.035664
+        ],
+        [
+          &quot;2M&quot;,
+          &quot;swap&quot;,
+          0.035611
+        ],
+        [
+          &quot;3M&quot;,
+          &quot;swap&quot;,
+          0.035559
+        ],
+        [
+          &quot;6M&quot;,
+          &quot;swap&quot;,
+          0.0383
+        ],
+        [
+          &quot;9M&quot;,
+          &quot;swap&quot;,
+          0.038925
+        ],
+        [
+          &quot;1Y&quot;,
+          &quot;swap&quot;,
+          0.0393
+        ],
+        [
+          &quot;18M&quot;,
+          &quot;swap&quot;,
+          0.0394
+        ],
+        [
+          &quot;2Y&quot;,
+          &quot;swap&quot;,
+          0.03945
+        ],
+        [
+          &quot;3Y&quot;,
+          &quot;swap&quot;,
+          0.03955
+        ],
+        [
+          &quot;4Y&quot;,
+          &quot;swap&quot;,
+          0.0397
+        ],
+        [
+          &quot;5Y&quot;,
+          &quot;swap&quot;,
+          0.0398
+        ],
+        [
+          &quot;6Y&quot;,
+          &quot;swap&quot;,
+          0.03985
+        ],
+        [
+          &quot;7Y&quot;,
+          &quot;swap&quot;,
+          0.0399
+        ],
+        [
+          &quot;8Y&quot;,
+          &quot;swap&quot;,
+          0.039925
+        ],
+        [
+          &quot;9Y&quot;,
+          &quot;swap&quot;,
+          0.040075
+        ],
+        [
+          &quot;10Y&quot;,
+          &quot;swap&quot;,
+          0.040175
+        ],
+        [
+          &quot;12Y&quot;,
+          &quot;swap&quot;,
+          0.040325
+        ],
+        [
+          &quot;15Y&quot;,
+          &quot;swap&quot;,
+          0.0404
+        ],
+        [
+          &quot;20Y&quot;,
+          &quot;swap&quot;,
+          0.0402
+        ],
+        [
+          &quot;25Y&quot;,
+          &quot;swap&quot;,
+          0.03925
+        ],
+        [
+          &quot;30Y&quot;,
+          &quot;swap&quot;,
+          0.03805
+        ]
+      ],
+      &quot;valueDate&quot;: &quot;2026-04-15&quot;,
+      &quot;outputType&quot;: &quot;shock_group&quot;,
+      &quot;optionArg&quot;: &quot;shock_zero100bp_up_zero_triangle_group&quot;
+    },
+    {
+      &quot;label&quot;: &quot;input_items&quot;,
+      &quot;notional&quot;: 10000000000,
+      &quot;valueDate&quot;: &quot;2026-04-15&quot;,
+      &quot;outputType&quot;: &quot;input_items&quot;,
+      &quot;optionArg&quot;: &quot;&quot;
+    }
+  ]
+}</pre>
+          </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo-name">QuantDev</div>
+          <p>금융공학 및 개발 서비스를 제공하는 개인 전문가 포트폴리오입니다.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="../index.html">소개</a></li>
+            <li><a href="../programs.html">Programs</a></li>
+            <li><a href="../pricing-api.html">PricingAPI</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="../contact.html">문의하기</a></li>
+            <li><a href="../portfolios.html">Portfolios</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">&copy; 2026 QuantDev. All rights reserved.</div>
+    </div>
+  </footer>
+</body>
+</html>
