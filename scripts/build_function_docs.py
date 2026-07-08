@@ -6,6 +6,8 @@ import json
 import pathlib
 import shutil
 
+from func_param_docs import get_param_docs
+
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 TARGET = ROOT / "pricing-api.html"
 FUNC_DIR = ROOT / "functions"
@@ -179,12 +181,23 @@ def load_sample_json(name: str) -> tuple[str | None, str | None]:
     return path.name, pretty
 
 
-def param_items(args: str) -> str:
-    inner = args[1:-1] if args.startswith("(") and args.endswith(")") else args
-    params = [p.strip() for p in inner.split(",") if p.strip()]
-    if not params:
+def param_items(func_name: str, args: str) -> str:
+    rows = get_param_docs(func_name, args)
+    if not rows:
         return "<li>" + u("\\uc785\\ub825 \\ud30c\\ub77c\\ubbf8\\ud130\\uac00 \\uc5c6\\uc2b5\\ub2c8\\ub2e4.") + "</li>"
-    return "".join("<li><code>" + html.escape(p) + "</code></li>" for p in params)
+    parts: list[str] = []
+    for name, desc in rows:
+        if desc:
+            parts.append(
+                '<li class="func-param-item"><code>'
+                + html.escape(name)
+                + "</code><span>"
+                + html.escape(desc)
+                + "</span></li>"
+            )
+        else:
+            parts.append("<li><code>" + html.escape(name) + "</code></li>")
+    return "".join(parts)
 
 
 def sample_section(name: str) -> str:
@@ -294,8 +307,8 @@ def page_html(name: str, args: str, desc: str, category_title: str) -> str:
         + u("\\uc785\\ub825 \\ud30c\\ub77c\\ubbf8\\ud130")
         + "</span>\n"
         "              </div>\n"
-        "              <ul>\n"
-        + param_items(args)
+        "              <ul class=\"func-param-list\">\n"
+        + param_items(name, args)
         + "              </ul>\n"
         "            </li>\n"
         '            <li class="changelog-item">\n'
